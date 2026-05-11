@@ -57,20 +57,23 @@ export type NewBook = Omit<Book, 'id'>;
 /**
  * Represents a row from `library_logs` with the `patrons` relation expanded.
  *
- * IMPORTANT: `patrons` is typed as `Patron | null` (single object) because
- * patron_id is a many-to-one foreign key. The Supabase JS client returns the
- * joined relation as an object when the FK points to a single row.
- * Using `Patron[]` here would be incorrect and would cause runtime errors
- * when accessing patrons.full_name.
+ * SELF-ANNEALING FIX (Phase 3):
+ *   The actual FK column is `student_id` (not `patron_id`). Corrected to match
+ *   the live Supabase schema. Status also includes 'auto-closed' (from the
+ *   `close_stale_library_sessions` scheduled function).
+ *
+ * `patrons` typed as `Patron | null` (single object) because student_id is a
+ * many-to-one FK. Using Patron[] here would cause runtime access errors.
  */
 export interface LogEntry {
   id: string;
-  patron_id: string;
-  time_in: string;           // ISO 8601 timestamp string
-  time_out: string | null;   // null = still checked in
-  status: 'active' | 'completed';
-  /** Populated by the relational select: patrons(full_name, patron_type) */
-  patrons: Pick<Patron, 'full_name' | 'patron_type'> | null;
+  student_id: string;           // FK → patrons.id  (column is named student_id in DB)
+  time_in: string;              // ISO 8601 timestamptz
+  time_out: string | null;      // null = session still active
+  status: 'active' | 'completed' | 'auto-closed';
+  device_id: string | null;     // QR scanner device identifier
+  /** Populated by relational select: patrons(full_name, patron_type, id_number) */
+  patrons: Pick<Patron, 'full_name' | 'patron_type' | 'id_number'> | null;
 }
 
 // ─── Auth (Zustand Store) ──────────────────────────────────────────────────────

@@ -41,3 +41,17 @@
     * `tsc --noEmit` → 0 errors.
     * All mutations call `queryClient.invalidateQueries` on success.
 * **Next Target:** Phase 3 — Live Monitor (Supabase Realtime subscriptions).
+
+### 2026-05-12 - Phase 3: Real-Time Attendance Monitor
+* **Action:**
+    * Built `LiveMonitor.tsx` — Supabase Realtime channel on `library_logs` (`INSERT` → prepend to cached list + green pulse animation, `UPDATE` → invalidate React Query cache).
+    * Realtime channel properly removed in `useEffect` cleanup (prevents memory leaks per directive).
+    * Manual Time-Out button — Supabase `UPDATE` sets `time_out = now()`, `status = 'completed'` on the targeted row.
+    * 3-stat overview bar (Currently Inside / Checked Out / Total Today) derived from cached data.
+    * Realtime connection status badge (Live / Connecting / Disconnected) with Wifi icon.
+    * **Self-Annealing Fix:** Corrected `LogEntry.student_id` (was wrongly typed as `patron_id`). DB column is `student_id`. Also added `auto-closed` to status union and `device_id` field.
+    * Wired `LiveMonitor` to `live-monitor` route in `App.tsx`.
+* **Validation:**
+    * `tsc --noEmit` → 0 errors.
+    * `patron_id` references confirmed to be comments only — no runtime breakage.
+* **Next Target:** Phase 4 — Reports (CSV/PDF export, date range filters).
