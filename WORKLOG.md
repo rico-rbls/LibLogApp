@@ -30,3 +30,14 @@
     * Session persistence confirmed: Supabase JS v2 stores session in localStorage; `onAuthStateChange` fires `INITIAL_SESSION` on reload.
 * **Refactor:** Migrated `src/lib/supabaseClient.ts` to `src/services/supabase.ts` per directive alignment and user request.
 * **Next Target:** Phase 2 — Patron Manager CRUD, Phase 3 — Live Monitor (Realtime).
+
+### 2026-05-12 - Phase 2: Patron & Book Engine (CRUD)
+* **Action:**
+    * Upgraded `BooksManager.tsx` — added "search as you type" (client-side filter via `useDeferredValue` + `useMemo`, zero extra HTTP requests), Edit modal with `updateMutation`, Pencil icon from `lucide-react`.
+    * Built `PatronManager.tsx` — joined Supabase query (`patrons + programs`), search filter on name/ID, patron-type filter tabs with live counts, Add/Edit/Delete modals, conditional Program+Year Level fields for students, role badges (Student=blue, Faculty=green, Visitor=orange).
+    * Extended `src/types/index.ts` with `Program`, updated `Patron` with real schema fields (`program_id`, `year_level`, `programs` relation), added `NewPatron` type.
+    * Wired `PatronManager` to the `patrons` nav route in `App.tsx`.
+* **Validation:**
+    * `tsc --noEmit` → 0 errors.
+    * All mutations call `queryClient.invalidateQueries` on success.
+* **Next Target:** Phase 3 — Live Monitor (Supabase Realtime subscriptions).

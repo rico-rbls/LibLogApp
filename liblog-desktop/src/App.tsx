@@ -24,6 +24,7 @@ import { useAuthStore } from './store/authStore';
 import AuthGate from './components/auth/AuthGate';
 import SidebarLayout, { type PageId } from './components/layout/SidebarLayout';
 import DashboardLayout from './pages/DashboardLayout';
+import PatronManager from './components/PatronManager';
 
 // ─── React Query Client ────────────────────────────────────────────────────────
 const queryClient = new QueryClient({
@@ -41,12 +42,7 @@ function renderPage(page: PageId) {
   switch (page) {
     case 'dashboard':    return <DashboardLayout />;
     case 'books':        return <DashboardLayout />;
-    case 'patrons':      return (
-      <div style={{ padding: '0' }}>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#1a1a2e', marginBottom: '8px' }}>Patron Management</h1>
-        <p style={{ color: '#9ca3af' }}>PatronManager component — coming in Phase 2.</p>
-      </div>
-    );
+    case 'patrons':      return <PatronManager />;
     case 'live-monitor': return (
       <div>
         <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#1a1a2e', marginBottom: '8px' }}>Live Monitor</h1>
