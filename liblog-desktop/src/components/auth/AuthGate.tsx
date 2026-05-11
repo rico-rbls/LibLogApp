@@ -12,7 +12,7 @@
  */
 import { useState, type FormEvent } from 'react';
 import { Library, Lock, Mail, Eye, EyeOff, Loader2 } from 'lucide-react';
-import { supabase } from '../../lib/supabaseClient';
+import { supabase } from '../../services/supabase';
 
 const CCC_PURPLE = '#652D90';
 const CCC_PURPLE_DARK = '#4A1F6E';

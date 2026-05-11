@@ -22,7 +22,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { ClipboardList, UserCheck, Clock, LogOut as ForceOut, RefreshCw } from 'lucide-react';
 import { format } from 'date-fns';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../services/supabase';
 import type { LogEntry } from '../types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────

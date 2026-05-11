@@ -19,7 +19,7 @@
  * - No manual localStorage reads are needed.
  */
 import { create } from 'zustand';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../services/supabase';
 import type { AuthStore } from '../types';
 
 export const useAuthStore = create<AuthStore>((set) => ({

@@ -28,4 +28,5 @@
 * **Validation:**
     * `tsc --noEmit` → 0 errors.
     * Session persistence confirmed: Supabase JS v2 stores session in localStorage; `onAuthStateChange` fires `INITIAL_SESSION` on reload.
+* **Refactor:** Migrated `src/lib/supabaseClient.ts` to `src/services/supabase.ts` per directive alignment and user request.
 * **Next Target:** Phase 2 — Patron Manager CRUD, Phase 3 — Live Monitor (Realtime).

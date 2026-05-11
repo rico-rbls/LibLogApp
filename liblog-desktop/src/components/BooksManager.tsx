@@ -14,7 +14,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Plus, Trash2, BookCopy, X, Loader2 } from 'lucide-react';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../services/supabase';
 import type { Book, NewBook } from '../types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
