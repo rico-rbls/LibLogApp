@@ -57,3 +57,30 @@ export interface LogEntry {
   /** Populated by the relational select: patrons(full_name, patron_type) */
   patrons: Pick<Patron, 'full_name' | 'patron_type'> | null;
 }
+
+// ─── Auth (Zustand Store) ──────────────────────────────────────────────────────
+import type { Session, User } from '@supabase/supabase-js';
+// Re-export for consumers that need these Supabase types via our types barrel
+export type { Session, User };
+
+/**
+ * Shape of the global auth state slice in Zustand.
+ * `session` is null when logged out, populated after signInWithPassword.
+ * `isInitialized` guards against the flash-of-login-screen on first load:
+ *   it stays false until onAuthStateChange fires its first event, which is
+ *   the correct moment to trust whether the user is logged in or not.
+ */
+export interface AuthState {
+  session: Session | null;
+  isInitialized: boolean;
+}
+
+/** Actions attached to the auth slice */
+export interface AuthActions {
+  setSession: (session: Session | null) => void;
+  setInitialized: () => void;
+  signOut: () => Promise<void>;
+}
+
+export type AuthStore = AuthState & AuthActions;
+

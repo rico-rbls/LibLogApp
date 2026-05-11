@@ -17,3 +17,15 @@
     * Confirmed zero `tsc --noEmit` errors.
     * Verified manual refresh and auto-refetch (30s) for logbook.
 * **Next Target:** Feature completion and UI/UX polish for 80% MVP.
+
+### 2026-05-12 - Phase 1: Authentication & Global Layout
+* **Action:**
+    * Built `AuthGate.tsx` — split-panel login screen with `supabase.auth.signInWithPassword`, CCC Purple (`#652D90`) button, inline error display, show/hide password.
+    * Built `SidebarLayout.tsx` — persistent sidebar with all 5 nav items (Dashboard, Books, Patrons, Live Monitor, Reports), active state in CCC Purple, collapsible, user email display, sign-out.
+    * Built `authStore.ts` (Zustand) — typed `AuthStore` interface, `onAuthStateChange` bootstrapped at module load for session persistence across page refreshes.
+    * Rewrote `App.tsx` as a 3-phase auth router: Loading Spinner → AuthGate → SidebarLayout.
+    * Extended `src/types/index.ts` with `AuthState`, `AuthActions`, `AuthStore` interfaces.
+* **Validation:**
+    * `tsc --noEmit` → 0 errors.
+    * Session persistence confirmed: Supabase JS v2 stores session in localStorage; `onAuthStateChange` fires `INITIAL_SESSION` on reload.
+* **Next Target:** Phase 2 — Patron Manager CRUD, Phase 3 — Live Monitor (Realtime).
