@@ -1,0 +1,37 @@
+/*
+ * LibLog - Global Stylesheet
+ * Institution: Calauan Community College (CCC)
+ *
+ * Tailwind v4 uses @import and CSS variables for design tokens.
+ * The CCC institutional purple (#652D90) is registered here as --color-ccc-purple
+ * and made available as the `ccc-purple` utility class throughout the project.
+ */
+@import "tailwindcss";
+
+/* ─── CCC Design Tokens ───────────────────────────────────────────── */
+@theme {
+  --color-ccc-purple:         #652D90;
+  --color-ccc-purple-light:   #8B4DBF;
+  --color-ccc-purple-dark:    #4A1F6E;
+  --color-ccc-purple-muted:   #F3EBF9;
+
+  --color-sidebar-bg:         #1E1030;  /* deep purple-black sidebar */
+  --color-sidebar-hover:      #2D1A4A;
+  --color-sidebar-active:     #652D90;
+
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ─── Base Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-family-sans);
+  background-color: #F8F5FD;
+  color: #1a1a2e;
+}
