@@ -32,6 +32,13 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env
+
+# Agent intermediate & auth files
+.tmp/
+credentials.json
+token.json
+
 
 # typescript
 *.tsbuildinfo
