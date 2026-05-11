@@ -26,6 +26,7 @@ import SidebarLayout, { type PageId } from './components/layout/SidebarLayout';
 import DashboardLayout from './pages/DashboardLayout';
 import PatronManager from './components/PatronManager';
 import LiveMonitor from './components/LiveMonitor';
+import ReportGenerator from './components/ReportGenerator';
 
 // ─── React Query Client ────────────────────────────────────────────────────────
 const queryClient = new QueryClient({
@@ -45,12 +46,7 @@ function renderPage(page: PageId) {
     case 'books':        return <DashboardLayout />;
     case 'patrons':      return <PatronManager />;
     case 'live-monitor': return <LiveMonitor />;
-    case 'reports':      return (
-      <div>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: '#1a1a2e', marginBottom: '8px' }}>Reports</h1>
-        <p style={{ color: '#9ca3af' }}>CHED compliance export — coming in Phase 4.</p>
-      </div>
-    );
+    case 'reports':      return <ReportGenerator />;
   }
 }
 

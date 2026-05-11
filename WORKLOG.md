@@ -55,3 +55,14 @@
     * `tsc --noEmit` → 0 errors.
     * `patron_id` references confirmed to be comments only — no runtime breakage.
 * **Next Target:** Phase 4 — Reports (CSV/PDF export, date range filters).
+
+### 2026-05-12 - Phase 4: Administrative Reporting (CHED Module)
+* **Action:**
+    * Installed `jspdf` + `jspdf-autotable` for PDF generation.
+    * Built `ReportGenerator.tsx` — date range, patron type, and program (BSPA/MID) filters.
+    * CSV export via native Blob (zero dependencies); PDF via jsPDF with CCC Purple header/footer branding, auto-pagination, and generation timestamp.
+    * Export buttons disabled + professional empty state when no records found.
+    * Program filter applied client-side (nested FK filter workaround for Supabase JS).
+    * Wired `ReportGenerator` to `reports` route in `App.tsx`.
+* **Validation:** `tsc --noEmit` → 0 errors.
+* **Status:** All 4 phases complete. MVP ready for May 18 milestone. 🎯
