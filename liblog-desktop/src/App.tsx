@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppShell from './components/layout/AppShell';
 import DashboardPage from './pages/DashboardPage';
+import DashboardLayout from './pages/DashboardLayout';
 
 // ─── React Query Client ────────────────────────────────────────────────────────
 // staleTime: 30s — balances freshness vs network calls on slow connections
@@ -31,11 +32,11 @@ const queryClient = new QueryClient({
 // Add new page components here as the app grows
 function renderPage(page: string) {
   switch (page) {
-    case 'dashboard':    return <DashboardPage />;
-    case 'student-logs': return <div style={{padding:'32px'}}><h1>Student Logs</h1><p style={{color:'#6b7280',marginTop:'8px'}}>Coming next sprint.</p></div>;
-    case 'inventory':    return <div style={{padding:'32px'}}><h1>Book Inventory</h1><p style={{color:'#6b7280',marginTop:'8px'}}>Coming next sprint.</p></div>;
+    case 'dashboard':    return <DashboardLayout />;
+    case 'student-logs': return <DashboardLayout />;
+    case 'inventory':    return <DashboardLayout />;
     case 'reports':      return <div style={{padding:'32px'}}><h1>Reports</h1><p style={{color:'#6b7280',marginTop:'8px'}}>Coming next sprint.</p></div>;
-    default:             return <DashboardPage />;
+    default:             return <DashboardLayout />;
   }
 }
 
