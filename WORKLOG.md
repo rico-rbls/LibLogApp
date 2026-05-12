@@ -80,3 +80,6 @@
 
 ### May 12, 2026 01:01 PM - Automated Sync
 * Restructured App.tsx and SidebarLayout to enforce strict IA. Separated Catalog from Attendance and resolved component bleeding. Consolidated code to master branch.
+
+### May 12, 2026 01:32 PM - Automated Sync
+* Established Phase 9 Monorepo: cleaned root package.json, fixed apps/desktop/tsconfig.json (removed Expo reference), corrected workspace paths to point at apps/desktop/liblog-desktop. TSC passes clean.

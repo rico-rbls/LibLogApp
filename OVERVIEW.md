@@ -3,18 +3,32 @@
 **Lead Programmer:** Ric Robles
 **Target Milestone:** May 18 MVP Launch
 
-## 🏛️ System Architecture (3-Layer)
-We adhere to a robust 3-layer architecture to ensure reliability and maintainability:
+## 🏛️ System Architecture (Monorepo Workspace)
+We adhere to an NPM Workspaces Monorepo to prevent dependency pollution between apps:
 1. **Layer 1: Directive (Intent)** — SOPs in `directives/` defining logic and edge cases.
 2. **Layer 2: Orchestration (AI)** — Intelligent routing and decision-making (Antigravity).
 3. **Layer 3: Execution (Deterministic)** — TypeScript components and Supabase services.
 
+### Workspace Structure
+```
+LibLogApp/
+├── apps/
+│   ├── desktop/liblog-desktop/   ← Vite + React + Tailwind (Active)
+│   └── mobile/                   ← Expo React Native (Paused)
+├── packages/shared/              ← Shared types/utils (Future)
+├── directives/                   ← SOPs
+├── execution/                    ← Python automation scripts
+└── package.json                  ← NPM Workspace Root
+```
+
 ## 💻 Tech Stack
-*   **Desktop Dashboard:** React 19 + Vite + TypeScript.
-*   **Styling:** Vanilla CSS + CCC Branding (Purple: `#652D90`).
-*   **State Management:** Zustand (Auth/Global), TanStack React Query (Server Cache).
+*   **Monorepo:** NPM Workspaces (`apps/desktop/liblog-desktop`, `apps/mobile`).
+*   **Desktop Dashboard:** React 19 + Vite 8 + TypeScript 6 + Tailwind CSS v4.
+*   **Mobile App:** Expo + React Native (Paused until Phase 10).
+*   **State Management:** Zustand (Auth/Global), TanStack React Query v5 (Server Cache).
 *   **Backend:** Supabase (Auth, PostgreSQL, Realtime).
 *   **Reporting:** jsPDF + jspdf-autotable (PDF), Native Blob (CSV).
+*   **Dev Commands:** `npm run dev:desktop` (from root) | `npm run dev` (from workspace).
 
 ## 📊 Database Schema (Supabase)
 *   **`programs`**: Academic tracks (BSPA, MID).
