@@ -17,7 +17,7 @@ LibLogApp/
 │   └── mobile/                   ← Expo React Native (Paused)
 ├── packages/shared/              ← Shared types/utils (Future)
 ├── directives/                   ← SOPs
-├── execution/                    ← Python automation scripts
+├── execution/                    ← Python scripts (Sync, Scaffold)
 └── package.json                  ← NPM Workspace Root
 ```
 

@@ -83,3 +83,6 @@
 
 ### May 12, 2026 01:32 PM - Automated Sync
 * Established Phase 9 Monorepo: cleaned root package.json, fixed apps/desktop/tsconfig.json (removed Expo reference), corrected workspace paths to point at apps/desktop/liblog-desktop. TSC passes clean.
+
+### May 12, 2026 01:39 PM - Automated Sync
+* Added scaffold_component.py to automate component creation with CCC branding. Fixed path logic to correctly target the desktop workspace. Updated OVERVIEW.md.
