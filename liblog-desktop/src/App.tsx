@@ -24,12 +24,11 @@ import { useAuthStore } from './store/authStore';
 import AuthGate from './components/auth/AuthGate';
 import SidebarLayout, { type PageId } from './components/layout/SidebarLayout';
 import DashboardHome from './pages/DashboardHome';
-import DashboardLayout from './pages/DashboardLayout';
-import PatronManager from './components/PatronManager';
 import BooksManager from './components/BooksManager';
-import LiveMonitor from './components/LiveMonitor';
-import ReportGenerator from './components/ReportGenerator';
+import PatronManager from './components/PatronManager';
 import CirculationManager from './components/CirculationManager';
+import LogbookManager from './components/LogbookManager';
+import ReportGenerator from './components/ReportGenerator';
 import OverdueDashboard from './components/OverdueDashboard';
 import { CCC_PURPLE, CCC_AUTH_BG_START, CCC_AUTH_BG_END, QUERY_STALE_TIME, QUERY_RETRY_COUNT } from './utils/constants';
 
@@ -44,16 +43,17 @@ const queryClient = new QueryClient({
   },
 });
 
-// ─── Page Registry ────────────────────────────────────────────────────────────
+// ─── Page Registry (Phase 8 — Strict IA Routing) ──────────────────────────────
+// Each route maps to exactly ONE component. No tab containers, no bleed.
 function renderPage(page: PageId) {
   switch (page) {
-    case 'dashboard':    return <DashboardHome />;
-    case 'books':        return <DashboardLayout />;
-    case 'patrons':      return <PatronManager />;
-    case 'circulation':  return <CirculationManager />;
-    case 'overdue':      return <OverdueDashboard />;
-    case 'live-monitor': return <LiveMonitor />;
-    case 'reports':      return <ReportGenerator />;
+    case 'dashboard':   return <DashboardHome />;
+    case 'catalog':     return <BooksManager />;
+    case 'patrons':     return <PatronManager />;
+    case 'circulation': return <CirculationManager />;
+    case 'attendance':  return <LogbookManager />;
+    case 'reports':     return <ReportGenerator />;
+    case 'overdue':     return <OverdueDashboard />;
   }
 }
 

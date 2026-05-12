@@ -40,6 +40,7 @@ We adhere to a robust 3-layer architecture to ensure reliability and maintainabi
 *   **Circulation Manager:** Implemented — issue/return engine with 3-day borrow period.
 *   **Overdue Dashboard:** Implemented — penalty tracker with date-fns calculation (₱5/day).
 *   **Dashboard BI Hub:** Implemented KPI scorecards and real-time alerts.
+*   **Information Architecture:** Implemented strict route isolation separating Entities (Catalog, Patrons) from Transactions (Circulation, Attendance).
 
 ## 🛠️ Development Mandates
 *   **Robles Git Loop:** `git add .` -> `commit` -> `push` for every logical milestone.

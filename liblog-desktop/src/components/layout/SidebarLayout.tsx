@@ -14,16 +14,15 @@
 import { type ReactNode } from 'react';
 import {
   LayoutDashboard,
-  BookCopy,
-  Users,
-  MonitorPlay,
-  BarChart3,
   Library,
+  Users,
+  ArrowRightLeft,
+  Clock,
+  FileText,
+  AlertTriangle,
   LogOut,
   ChevronLeft,
   ChevronRight,
-  BookMarked,
-  AlertTriangle,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
@@ -33,8 +32,8 @@ import { CCC_PURPLE } from '../../utils/constants';
 const SIDEBAR_BG = '#1E1030';
 const SIDEBAR_HOVER = '#2D1A4A';
 
-// ─── Nav Registry ─────────────────────────────────────────────────────────────
-type PageId = 'dashboard' | 'books' | 'patrons' | 'live-monitor' | 'reports' | 'circulation' | 'overdue';
+// ─── Nav Registry (Phase 8 — Strict IA) ────────────────────────────────────
+type PageId = 'dashboard' | 'catalog' | 'patrons' | 'circulation' | 'attendance' | 'reports' | 'overdue';
 
 interface NavItem {
   id: PageId;
@@ -43,13 +42,13 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: 'dashboard',    label: 'Dashboard',      icon: LayoutDashboard },
-  { id: 'books',        label: 'Books',           icon: BookCopy        },
-  { id: 'patrons',      label: 'Patrons',         icon: Users           },
-  { id: 'circulation',  label: 'Circulation',     icon: BookMarked      },
-  { id: 'overdue',      label: 'Overdue',         icon: AlertTriangle   },
-  { id: 'live-monitor', label: 'Live Monitor',    icon: MonitorPlay     },
-  { id: 'reports',      label: 'Reports',         icon: BarChart3       },
+  { id: 'dashboard',   label: 'Dashboard',    icon: LayoutDashboard },
+  { id: 'catalog',     label: 'Catalog',      icon: Library         },
+  { id: 'patrons',     label: 'Patrons',      icon: Users           },
+  { id: 'circulation', label: 'Circulation',  icon: ArrowRightLeft  },
+  { id: 'attendance',  label: 'Attendance',   icon: Clock           },
+  { id: 'reports',     label: 'Reports',      icon: FileText        },
+  { id: 'overdue',     label: 'Overdue',      icon: AlertTriangle   },
 ];
 
 // ─── Props ────────────────────────────────────────────────────────────────────
