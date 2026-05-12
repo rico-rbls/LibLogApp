@@ -34,7 +34,7 @@ We adhere to a robust 3-layer architecture to ensure reliability and maintainabi
 ## 🖥️ Desktop Implementation Status
 *   **Auth Gate:** Implemented — email/password login, session persistence via Supabase.
 *   **Patron Manager:** Implemented — CRUD with Unified ID (7-char short ID), program joins.
-*   **Books Manager:** Implemented — full inventory management with donation workflow.
+*   **Inventory:** Dual-view Catalog (Grid/Table) with interactive Edit Modal and strict component isolation.
 *   **Live Monitor:** Implemented — Supabase Realtime subscriptions, pulse animation on new scans.
 *   **Report Generator:** Implemented — CSV + PDF exports with CHED-compliant formatting.
 *   **Circulation Manager:** Implemented — issue/return engine with 3-day borrow period.
