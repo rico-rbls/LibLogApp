@@ -217,11 +217,14 @@ export default function BooksManager() {
 
       {/* ── GRID VIEW ── */}
       {view === 'grid' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {isLoading
-            ? Array.from({ length: 8 }).map((_, i) => <div key={i} style={{ height: '270px', borderRadius: '16px', background: '#f3e8ff', opacity: 0.4, animation: 'pulse 1.5s ease-in-out infinite' }} />)
+            ? Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-[270px] rounded-2xl bg-purple-100 opacity-40 animate-pulse" />)
             : filtered.length === 0
-              ? <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '48px', color: '#9ca3af' }}><BookCopy size={32} style={{ margin: '0 auto 12px', opacity: 0.3, display: 'block' }} />{search ? `No books match "${searchRaw}"` : 'No books found.'}</div>
+              ? <div className="col-span-full text-center py-12 text-gray-400">
+                  <BookCopy size={32} className="mx-auto mb-3 opacity-30 block" />
+                  {search ? `No books match "${searchRaw}"` : 'No books found.'}
+                </div>
               : filtered.map(book => <BookCard key={book.id} book={book} onEdit={setEditTarget} onDonate={handleDonate} onDelete={handleDelete} />)
           }
         </div>
