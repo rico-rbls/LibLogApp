@@ -27,7 +27,7 @@ import type { LogEntry } from '../types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const QUERY_KEY = ['library_logs'] as const;
-const CCC_PURPLE = '#652D90';
+import { CCC_PURPLE } from '../utils/constants';
 /** Auto-refetch every 30s for near-real-time attendance tracking */
 const REFETCH_INTERVAL = 30_000;
 

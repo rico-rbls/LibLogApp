@@ -33,10 +33,10 @@ import { MonitorPlay, LogOut, RefreshCw, Wifi, WifiOff, Clock } from 'lucide-rea
 import { format, isToday, parseISO } from 'date-fns';
 import { supabase } from '../services/supabase';
 import type { LogEntry } from '../types';
+import { CCC_PURPLE } from '../utils/constants';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const LOG_QUERY_KEY = ['live-logs'] as const;
-const CCC_PURPLE    = '#652D90';
 
 // ─── Supabase Fetchers ────────────────────────────────────────────────────────
 async function fetchTodayLogs(): Promise<LogEntry[]> {

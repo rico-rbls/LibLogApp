@@ -22,6 +22,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
+import { CCC_PURPLE } from '../../utils/constants';
 
 // ─── Type Definitions ──────────────────────────────────────────────────────────
 interface NavItem {
@@ -75,7 +76,7 @@ export default function Sidebar({ activePage, onNavigate }: SidebarProps) {
         justifyContent: collapsed ? 'center' : 'flex-start',
         minHeight: '72px',
       }}>
-        <Library size={28} color="#652D90" style={{ flexShrink: 0 }} />
+        <Library size={28} color={CCC_PURPLE} style={{ flexShrink: 0 }} />
         {!collapsed && (
           <div>
             <p style={{ color: '#ffffff', fontWeight: 700, fontSize: '15px', lineHeight: 1.2 }}>

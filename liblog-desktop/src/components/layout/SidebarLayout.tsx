@@ -28,7 +28,7 @@ import { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const CCC_PURPLE = '#652D90';
+import { CCC_PURPLE } from '../../utils/constants';
 const SIDEBAR_BG = '#1E1030';
 const SIDEBAR_HOVER = '#2D1A4A';
 

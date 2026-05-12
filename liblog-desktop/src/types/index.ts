@@ -76,6 +76,19 @@ export interface LogEntry {
   patrons: Pick<Patron, 'full_name' | 'patron_type' | 'id_number'> | null;
 }
 
+/**
+ * Extended LogEntry used by ReportGenerator.
+ * The select includes `patrons.program_id` and the nested `programs(name, acronym)` join,
+ * which requires a richer patron shape than the base LogEntry.
+ * Using this type eliminates all `as any` casts in ReportGenerator.
+ */
+export interface LogEntryWithProgram extends Omit<LogEntry, 'patrons'> {
+  patrons: (Pick<Patron, 'full_name' | 'patron_type' | 'id_number'> & {
+    program_id: number | null;
+    programs: Pick<Program, 'name' | 'acronym'> | null;
+  }) | null;
+}
+
 // ─── Auth (Zustand Store) ──────────────────────────────────────────────────────
 import type { Session, User } from '@supabase/supabase-js';
 // Re-export for consumers that need these Supabase types via our types barrel

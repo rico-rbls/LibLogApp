@@ -17,7 +17,7 @@ import BooksManager from '../components/BooksManager';
 import LogbookManager from '../components/LogbookManager';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
-const CCC_PURPLE = '#652D90';
+import { CCC_PURPLE } from '../utils/constants';
 
 type TabId = 'books' | 'logbook';
 

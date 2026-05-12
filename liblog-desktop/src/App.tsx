@@ -27,13 +27,14 @@ import DashboardLayout from './pages/DashboardLayout';
 import PatronManager from './components/PatronManager';
 import LiveMonitor from './components/LiveMonitor';
 import ReportGenerator from './components/ReportGenerator';
+import { CCC_PURPLE, CCC_AUTH_BG_START, CCC_AUTH_BG_END, QUERY_STALE_TIME, QUERY_RETRY_COUNT } from './utils/constants';
 
 // ─── React Query Client ────────────────────────────────────────────────────────
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 30,       // 30s — balanced for slow/unstable networks
-      retry: 2,                   // offline resilience
+      staleTime: QUERY_STALE_TIME,
+      retry: QUERY_RETRY_COUNT,
       refetchOnWindowFocus: false,
     },
   },
@@ -55,13 +56,13 @@ function InitializingScreen() {
   return (
     <div style={{
       height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: 'linear-gradient(135deg, #1E1030 0%, #2D1A4A 100%)',
+      background: `linear-gradient(135deg, ${CCC_AUTH_BG_START} 0%, ${CCC_AUTH_BG_END} 100%)`,
       flexDirection: 'column', gap: '16px',
     }}>
       <div style={{
         width: '40px', height: '40px', borderRadius: '50%',
-        border: '3px solid rgba(101,45,144,0.3)',
-        borderTopColor: '#652D90',
+        border: `3px solid ${CCC_PURPLE}4D`,
+        borderTopColor: CCC_PURPLE,
         animation: 'spin 0.9s linear infinite',
       }} />
       <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px', fontFamily: "'Inter', system-ui, sans-serif" }}>

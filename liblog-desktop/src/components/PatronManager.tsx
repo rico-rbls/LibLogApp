@@ -30,7 +30,7 @@ import type { Patron, NewPatron, Program } from '../types';
 // ─── Constants ────────────────────────────────────────────────────────────────
 const PATRON_QUERY_KEY  = ['patrons'] as const;
 const PROGRAM_QUERY_KEY = ['programs'] as const;
-const CCC_PURPLE = '#652D90';
+import { CCC_PURPLE } from '../utils/constants';
 
 type PatronTypeFilter = 'all' | 'student' | 'faculty' | 'visitor';
 

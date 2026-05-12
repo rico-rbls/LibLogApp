@@ -14,7 +14,7 @@ import { useState, type FormEvent } from 'react';
 import { Library, Lock, Mail, Eye, EyeOff, Loader2 } from 'lucide-react';
 import { supabase } from '../../services/supabase';
 
-const CCC_PURPLE = '#652D90';
+import { CCC_PURPLE } from '../../utils/constants';
 const CCC_PURPLE_DARK = '#4A1F6E';
 
 export default function AuthGate() {

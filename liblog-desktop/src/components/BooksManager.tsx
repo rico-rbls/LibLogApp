@@ -19,7 +19,7 @@ import type { Book, NewBook } from '../types';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 const QUERY_KEY = ['books'] as const;
-const CCC_PURPLE = '#652D90';
+import { CCC_PURPLE } from '../utils/constants';
 
 // ─── Supabase Fetchers ────────────────────────────────────────────────────────
 async function fetchBooks(): Promise<Book[]> {

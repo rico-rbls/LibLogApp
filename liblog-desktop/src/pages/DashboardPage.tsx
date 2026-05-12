@@ -2,8 +2,10 @@
  * DashboardPage.tsx
  * -----------------
  * Placeholder for the main dashboard view.
- * Replace stat cards with real React Query data hooks.
+ * Replace stat cards with real React Query data hooks in Phase 5.
  */
+import { CCC_PURPLE, CCC_PURPLE_DARK, CCC_PURPLE_LIGHT, COLOR_WARNING } from '../utils/constants';
+
 export default function DashboardPage() {
   return (
     <div>
@@ -17,10 +19,10 @@ export default function DashboardPage() {
       {/* Stat Cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
         {[
-          { label: 'Logged In Today',  value: '—', color: '#652D90' },
-          { label: 'Total Students',   value: '—', color: '#4A1F6E' },
-          { label: 'Books Available',  value: '—', color: '#8B4DBF' },
-          { label: 'Overdue Items',    value: '—', color: '#D97706' },
+          { label: 'Logged In Today',  value: '—', color: CCC_PURPLE      },
+          { label: 'Total Patrons',    value: '—', color: CCC_PURPLE_DARK  },
+          { label: 'Books Available',  value: '—', color: CCC_PURPLE_LIGHT },
+          { label: 'Overdue Items',    value: '—', color: COLOR_WARNING     },
         ].map(({ label, value, color }) => (
           <div
             key={label}

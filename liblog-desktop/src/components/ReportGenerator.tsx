@@ -1,11 +1,16 @@
 /**
- * ReportGenerator.tsx  (Phase 4)
- * --------------------------------
+ * ReportGenerator.tsx  (Phase 4 — hardened)
+ * -------------------------------------------
  * CHED Compliance Export Engine for LibLog.
  * Institution: Calauan Community College (CCC)
  *
  * Filters: Date Range + Patron Type + Program (BSPA / MID)
  * Exports: CSV (native Blob) + PDF (jsPDF + autotable)
+ *
+ * Hardening (Static Analysis Pass):
+ *   - All colour constants imported from utils/constants.ts (DRY).
+ *   - LogEntryWithProgram replaces 'as any' casts on patron.programs.
+ *   - jsPDF page count uses public API doc.getNumberOfPages().
  */
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
@@ -14,24 +19,15 @@ import { format, parseISO } from 'date-fns';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { supabase } from '../services/supabase';
-import type { LogEntry } from '../types';
-
-// ─── Constants ────────────────────────────────────────────────────────────────
-const CCC_PURPLE = '#652D90';
-const CCC_PURPLE_RGB: [number, number, number] = [101, 45, 144];
-
-const PROGRAMS = [
-  { id: '',  label: 'All Programs' },
-  { id: '1', label: 'BSPA — Bachelor of Science in Public Administration' },
-  { id: '2', label: 'MID — Midwifery' },
-];
-
-const PATRON_TYPES = [
-  { value: '',         label: 'All Types'  },
-  { value: 'student',  label: 'Students'   },
-  { value: 'faculty',  label: 'Faculty'    },
-  { value: 'visitor',  label: 'Visitors'   },
-];
+import type { LogEntryWithProgram } from '../types';
+import {
+  CCC_PURPLE,
+  CCC_PURPLE_RGB,
+  INSTITUTION_NAME,
+  INSTITUTION_SYSTEM,
+  DB_PROGRAMS  as PROGRAMS,
+  DB_PATRON_TYPES as PATRON_TYPES,
+} from '../utils/constants';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface ReportFilters {
@@ -61,12 +57,12 @@ function getDuration(timeIn: string, timeOut: string | null): string {
   return `${Math.floor(mins / 60)}h ${mins % 60}m`;
 }
 
-function toReportRows(logs: LogEntry[]): ReportRow[] {
+function toReportRows(logs: LogEntryWithProgram[]): ReportRow[] {
   return logs.map(l => ({
-    id_number:   l.patrons?.id_number  ?? '—',
-    full_name:   l.patrons?.full_name  ?? '—',
+    id_number:   l.patrons?.id_number   ?? '—',
+    full_name:   l.patrons?.full_name   ?? '—',
     patron_type: l.patrons?.patron_type ?? '—',
-    program:     (l.patrons as any)?.programs?.acronym ?? '—',
+    program:     l.patrons?.programs?.acronym ?? '—',   // typed — no 'as any'
     date:        l.time_in ? format(parseISO(l.time_in), 'MMM d, yyyy') : '—',
     time_in:     l.time_in  ? format(parseISO(l.time_in),  'h:mm a') : '—',
     time_out:    l.time_out ? format(parseISO(l.time_out), 'h:mm a') : '—',
@@ -76,7 +72,7 @@ function toReportRows(logs: LogEntry[]): ReportRow[] {
 }
 
 // ─── Supabase Query ───────────────────────────────────────────────────────────
-async function fetchReportLogs(filters: ReportFilters): Promise<LogEntry[]> {
+async function fetchReportLogs(filters: ReportFilters): Promise<LogEntryWithProgram[]> {
   let q = supabase
     .from('library_logs')
     .select('*, patrons(full_name, id_number, patron_type, program_id, programs(name, acronym))')
@@ -89,11 +85,11 @@ async function fetchReportLogs(filters: ReportFilters): Promise<LogEntry[]> {
   const { data, error } = await q;
   if (error) throw new Error(error.message);
 
-  let result = (data ?? []) as LogEntry[];
+  let result = (data ?? []) as LogEntryWithProgram[];
 
   // Program filter applied client-side (nested FK filter not supported in Supabase JS)
   if (filters.programId) {
-    result = result.filter(l => (l.patrons as any)?.program_id === Number(filters.programId));
+    result = result.filter(l => l.patrons?.program_id === Number(filters.programId));
   }
 
   return result;
@@ -128,14 +124,14 @@ function exportPDF(rows: ReportRow[], filters: ReportFilters, totalCount: number
   doc.setFillColor(...CCC_PURPLE_RGB);
   doc.rect(0, 0, pageW, 28, 'F');
 
-  // Title
+  // Title — strings from constants (DRY)
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
-  doc.text('CALAUAN COMMUNITY COLLEGE', 14, 11);
+  doc.text(INSTITUTION_NAME.toUpperCase(), 14, 11);
   doc.setFontSize(11);
   doc.setFont('helvetica', 'normal');
-  doc.text('Library Usage Report — LibLog System', 14, 19);
+  doc.text(INSTITUTION_SYSTEM, 14, 19);
 
   // Date stamp (top-right)
   doc.setFontSize(8);
@@ -178,12 +174,12 @@ function exportPDF(rows: ReportRow[], filters: ReportFilters, totalCount: number
       8: { cellWidth: 22 },
     },
     didDrawPage: (data) => {
-      // Footer on every page
-      const pageCount = (doc as any).internal.getNumberOfPages();
+      // Footer on every page — use public jsPDF API (no 'as any')
+      const pageCount = doc.getNumberOfPages();
       doc.setFontSize(7);
       doc.setTextColor(150, 150, 150);
       doc.text(
-        `LibLog — Calauan Community College  |  Page ${data.pageNumber} of ${pageCount}`,
+        `LibLog — ${INSTITUTION_NAME}  |  Page ${data.pageNumber} of ${pageCount}`,
         pageW / 2,
         doc.internal.pageSize.getHeight() - 6,
         { align: 'center' }
@@ -258,7 +254,7 @@ export default function ReportGenerator() {
   const [submitted, setSubmitted] = useState<ReportFilters | null>(null);
   const [isExporting, setIsExporting] = useState(false);
 
-  const { data: logs = [], isLoading, isError, error } = useQuery<LogEntry[], Error>({
+  const { data: logs = [], isLoading, isError, error } = useQuery<LogEntryWithProgram[], Error>({
     queryKey: ['report-logs', submitted],
     queryFn: () => fetchReportLogs(submitted!),
     enabled: submitted !== null,
