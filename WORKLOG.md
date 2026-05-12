@@ -89,3 +89,6 @@
 
 ### May 12, 2026 01:45 PM - Automated Sync
 * Built PenaltyLedger with React Query fetching overdue book_loans, client-side penalty calc at PHP5/day, Settle Payment mutation using SUCCESS_GREEN (#10B981). Fixed scaffold_component.py JSX comment f-string SyntaxError. Wired into overdue route in App.tsx.
+
+### May 12, 2026 01:49 PM - Automated Sync
+* Confirmed CirculationManager (issue/return split-panel) and OverdueDashboard (due_date<NOW penalty calc) are fully implemented. DB sync confirmed book_loans schema matches types. Restored OverdueDashboard to overdue route. Zero TSC errors.

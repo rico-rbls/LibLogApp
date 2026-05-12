@@ -30,6 +30,7 @@ import CirculationManager from './components/CirculationManager';
 import LogbookManager from './components/LogbookManager';
 import ReportGenerator from './components/ReportGenerator';
 import PenaltyLedger from './components/PenaltyLedger';
+import OverdueDashboard from './components/OverdueDashboard';
 import { CCC_PURPLE, CCC_AUTH_BG_START, CCC_AUTH_BG_END, QUERY_STALE_TIME, QUERY_RETRY_COUNT } from './utils/constants';
 
 // ─── React Query Client ────────────────────────────────────────────────────────
@@ -53,7 +54,7 @@ function renderPage(page: PageId) {
     case 'circulation': return <CirculationManager />;
     case 'attendance':  return <LogbookManager />;
     case 'reports':     return <ReportGenerator />;
-    case 'overdue':     return <PenaltyLedger />;
+    case 'overdue':     return <OverdueDashboard />;  // Phase 5: due_date < NOW() + penalty calc
   }
 }
 
