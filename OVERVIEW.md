@@ -28,6 +28,18 @@ We adhere to a robust 3-layer architecture to ensure reliability and maintainabi
 *   **Phase 2: CRUD Engine** — High-performance "Search-as-you-type" for 5,000+ books and patron management with relational joins.
 *   **Phase 3: Live Monitor** — Real-time sensor array using Supabase Realtime subscriptions with pulse animations for new scans.
 *   **Phase 4: CHED Reporting** — Administrative export module for CSV and professional PDF reports.
+*   **Phase 5: Circulation Engine** — Book lending lifecycle (3-day loans, ₱5/day overdue penalties, return processing, donated inventory workflow).
+*   **Phase 6: Dashboard BI Hub** — Implemented KPI scorecards and real-time alerts.
+
+## 🖥️ Desktop Implementation Status
+*   **Auth Gate:** Implemented — email/password login, session persistence via Supabase.
+*   **Patron Manager:** Implemented — CRUD with Unified ID (7-char short ID), program joins.
+*   **Books Manager:** Implemented — full inventory management with donation workflow.
+*   **Live Monitor:** Implemented — Supabase Realtime subscriptions, pulse animation on new scans.
+*   **Report Generator:** Implemented — CSV + PDF exports with CHED-compliant formatting.
+*   **Circulation Manager:** Implemented — issue/return engine with 3-day borrow period.
+*   **Overdue Dashboard:** Implemented — penalty tracker with date-fns calculation (₱5/day).
+*   **Dashboard BI Hub:** Implemented KPI scorecards and real-time alerts.
 
 ## 🛠️ Development Mandates
 *   **Robles Git Loop:** `git add .` -> `commit` -> `push` for every logical milestone.
