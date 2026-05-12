@@ -5,7 +5,7 @@
  * Institution: Calauan Community College (CCC)
  *
  * Schema:
- *   patrons: id (uuid), id_number (text), full_name (text),
+ *   patrons: id (uuid), unified_id (text), full_name (text),
  *            patron_type ('student'|'faculty'|'visitor'),
  *            program_id (int, FK → programs), year_level (int 1-4),
  *            created_at (timestamptz)
@@ -13,7 +13,7 @@
  *
  * Features:
  *   - Joined query: patrons + programs (for acronym display)
- *   - "Search as you type" filtering on name OR id_number (client-side)
+ *   - "Search as you type" filtering on name OR unified_id (client-side)
  *   - Patron type filter dropdown (All / Student / Faculty / Visitor)
  *   - Add patron modal
  *   - Edit patron modal (pre-populated)
@@ -123,12 +123,12 @@ interface PatronModalProps {
 }
 
 const EMPTY_PATRON: NewPatron = {
-  full_name: '', id_number: '', patron_type: 'student', program_id: null, year_level: null,
+  full_name: '', unified_id: '', patron_type: 'student', program_id: null, year_level: null,
 };
 
 function PatronModal({ mode, initial, programs, onClose, onSubmit, isPending, error }: PatronModalProps) {
   const [form, setForm] = useState<NewPatron>(() => initial
-    ? { full_name: initial.full_name, id_number: initial.id_number, patron_type: initial.patron_type, program_id: initial.program_id, year_level: initial.year_level }
+    ? { full_name: initial.full_name, unified_id: initial.unified_id, patron_type: initial.patron_type, program_id: initial.program_id, year_level: initial.year_level }
     : EMPTY_PATRON
   );
 
@@ -208,10 +208,10 @@ function PatronModal({ mode, initial, programs, onClose, onSubmit, isPending, er
           {/* ID Number + Patron Type */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <div>
-              <label style={labelStyle}>ID Number *</label>
-              <input required value={form.id_number}
-                onChange={e => setForm(f => ({ ...f, id_number: e.target.value }))}
-                placeholder="e.g. 2024-0001" style={inputStyle}
+              <label style={labelStyle}>Unified ID *</label>
+              <input required value={form.unified_id}
+                onChange={e => setForm(f => ({ ...f, unified_id: e.target.value }))}
+                placeholder="Auto-generated" style={inputStyle}
                 onFocus={handleFocus} onBlur={handleBlur} />
             </div>
             <div>
@@ -316,7 +316,7 @@ export default function PatronManager() {
     if (typeFilter !== 'all') result = result.filter(p => p.patron_type === typeFilter);
     if (search) result = result.filter(p =>
       p.full_name.toLowerCase().includes(search) ||
-      p.id_number.toLowerCase().includes(search)
+      p.unified_id.toLowerCase().includes(search)
     );
     return result;
   }, [patrons, typeFilter, search]);
@@ -426,7 +426,7 @@ export default function PatronManager() {
           <input
             id="patron-search"
             type="search"
-            placeholder="Search by name or ID number…"
+            placeholder="Search by name or Unified ID…"
             value={searchRaw}
             onChange={e => setSearchRaw(e.target.value)}
             style={{
@@ -472,7 +472,7 @@ export default function PatronManager() {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
           <thead>
             <tr style={{ backgroundColor: '#faf5ff', borderBottom: '2px solid #f3e8ff' }}>
-              {['ID Number', 'Full Name', 'Patron Type', 'Program', 'Actions'].map(h => (
+              {['Unified ID', 'Full Name', 'Patron Type', 'Program', 'Actions'].map(h => (
                 <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 700, color: CCC_PURPLE, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>
                   {h}
                 </th>
@@ -505,7 +505,7 @@ export default function PatronManager() {
                     onMouseLeave={e => { (e.currentTarget as HTMLTableRowElement).style.backgroundColor = idx % 2 === 0 ? '#fff' : '#fdfbff'; }}
                   >
                     <td style={{ padding: '13px 16px', fontFamily: 'monospace', fontSize: '13px', color: '#6b7280', fontWeight: 500 }}>
-                      {patron.id_number}
+                      {patron.unified_id}
                     </td>
                     <td style={{ padding: '13px 16px', fontWeight: 600, color: '#1a1a2e' }}>
                       {patron.full_name}

@@ -32,7 +32,7 @@ const PENALTY_PER_DAY = 5; // ₱5
 async function fetchActiveLoans(): Promise<BookLoanWithRelations[]> {
   const { data, error } = await supabase
     .from('book_loans')
-    .select('*, books(title, author, isbn, available_copies), patrons(full_name, id_number, patron_type)')
+    .select('*, books(title, author, isbn, available_copies), patrons(full_name, unified_id, patron_type)')
     .eq('status', 'active')
     .order('borrowed_at', { ascending: false });
   if (error) throw new Error(error.message);
@@ -241,7 +241,7 @@ export default function CirculationManager() {
                   <option value=''>— Choose patron —</option>
                   {patrons.map(p => (
                     <option key={p.id} value={p.id}>
-                      {p.full_name} ({p.id_number})
+                      {p.full_name} ({p.unified_id})
                     </option>
                   ))}
                 </select>
@@ -353,7 +353,7 @@ export default function CirculationManager() {
                     >
                       <td style={{ padding: '12px', fontWeight: 600, color: '#1a1a2e' }}>
                         <div>{loan.patrons?.full_name ?? '—'}</div>
-                        <div style={{ fontSize: '11px', color: '#9ca3af' }}>{loan.patrons?.id_number}</div>
+                        <div style={{ fontSize: '11px', color: '#9ca3af' }}>{loan.patrons?.unified_id}</div>
                       </td>
                       <td style={{ padding: '12px', color: '#374151' }}>
                         <div style={{ fontWeight: 500 }}>{loan.books?.title ?? '—'}</div>

@@ -44,7 +44,7 @@ function calcPenalty(dueDateISO: string): number {
 async function fetchOverdueLoans(): Promise<BookLoanWithRelations[]> {
   const { data, error } = await supabase
     .from('book_loans')
-    .select('*, books(title, author, isbn, available_copies), patrons(full_name, id_number, patron_type)')
+    .select('*, books(title, author, isbn, available_copies), patrons(full_name, unified_id, patron_type)')
     .lt('due_date', new Date().toISOString())   // due_date < NOW()
     .eq('status', 'active')                      // still not returned
     .order('due_date', { ascending: true });     // most overdue first
@@ -262,7 +262,7 @@ export default function OverdueDashboard() {
                           {loan.patrons?.full_name ?? '—'}
                         </div>
                         <div style={{ fontSize: '11px', color: '#9ca3af' }}>
-                          {loan.patrons?.id_number} · {loan.patrons?.patron_type}
+                          {loan.patrons?.unified_id} · {loan.patrons?.patron_type}
                         </div>
                       </td>
 

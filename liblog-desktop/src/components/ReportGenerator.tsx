@@ -38,7 +38,7 @@ interface ReportFilters {
 }
 
 interface ReportRow {
-  id_number: string;
+  unified_id: string;
   full_name: string;
   patron_type: string;
   program: string;
@@ -59,7 +59,7 @@ function getDuration(timeIn: string, timeOut: string | null): string {
 
 function toReportRows(logs: LogEntryWithProgram[]): ReportRow[] {
   return logs.map(l => ({
-    id_number:   l.patrons?.id_number   ?? '—',
+    unified_id:  l.patrons?.unified_id   ?? '—',
     full_name:   l.patrons?.full_name   ?? '—',
     patron_type: l.patrons?.patron_type ?? '—',
     program:     l.patrons?.programs?.acronym ?? '—',   // typed — no 'as any'
@@ -75,7 +75,7 @@ function toReportRows(logs: LogEntryWithProgram[]): ReportRow[] {
 async function fetchReportLogs(filters: ReportFilters): Promise<LogEntryWithProgram[]> {
   let q = supabase
     .from('library_logs')
-    .select('*, patrons(full_name, id_number, patron_type, program_id, programs(name, acronym))')
+    .select('*, patrons(full_name, unified_id, patron_type, program_id, programs(name, acronym))')
     .gte('time_in', `${filters.startDate}T00:00:00+08:00`)
     .lte('time_in', `${filters.endDate}T23:59:59+08:00`)
     .order('time_in', { ascending: false });
@@ -97,11 +97,11 @@ async function fetchReportLogs(filters: ReportFilters): Promise<LogEntryWithProg
 
 // ─── Export: CSV ─────────────────────────────────────────────────────────────
 function exportCSV(rows: ReportRow[], filename: string) {
-  const headers = ['ID Number','Full Name','Type','Program','Date','Time In','Time Out','Duration','Status'];
+  const headers = ['Unified ID','Full Name','Type','Program','Date','Time In','Time Out','Duration','Status'];
   const lines = [
     headers.join(','),
     ...rows.map(r => [
-      r.id_number, `"${r.full_name}"`, r.patron_type, r.program,
+      r.unified_id, `"${r.full_name}"`, r.patron_type, r.program,
       r.date, r.time_in, r.time_out, r.duration, r.status,
     ].join(',')),
   ];
@@ -152,8 +152,8 @@ function exportPDF(rows: ReportRow[], filters: ReportFilters, totalCount: number
   // Table
   autoTable(doc, {
     startY: 42,
-    head: [['ID Number', 'Full Name', 'Type', 'Program', 'Date', 'Time In', 'Time Out', 'Duration', 'Status']],
-    body: rows.map(r => [r.id_number, r.full_name, r.patron_type, r.program, r.date, r.time_in, r.time_out, r.duration, r.status]),
+    head: [['Unified ID', 'Full Name', 'Type', 'Program', 'Date', 'Time In', 'Time Out', 'Duration', 'Status']],
+    body: rows.map(r => [r.unified_id, r.full_name, r.patron_type, r.program, r.date, r.time_in, r.time_out, r.duration, r.status]),
     headStyles: {
       fillColor: CCC_PURPLE_RGB,
       textColor: [255, 255, 255],
@@ -459,7 +459,7 @@ export default function ReportGenerator() {
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
               <thead>
                 <tr style={{ backgroundColor: '#faf5ff', borderBottom: '2px solid #f3e8ff' }}>
-                  {['ID Number','Full Name','Type','Program','Date','Time In','Time Out','Duration','Status'].map(h => (
+                  {['Unified ID','Full Name','Type','Program','Date','Time In','Time Out','Duration','Status'].map(h => (
                     <th key={h} style={{ padding: '11px 14px', textAlign: 'left', fontSize: '10px', fontWeight: 700, color: CCC_PURPLE, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>
                       {h}
                     </th>
@@ -473,7 +473,7 @@ export default function ReportGenerator() {
                     onMouseEnter={e => { (e.currentTarget as HTMLTableRowElement).style.backgroundColor = '#faf5ff'; }}
                     onMouseLeave={e => { (e.currentTarget as HTMLTableRowElement).style.backgroundColor = i % 2 === 0 ? '#fff' : '#fdfbff'; }}
                   >
-                    <td style={{ padding: '11px 14px', fontFamily: 'monospace', fontSize: '12px', color: '#6b7280' }}>{r.id_number}</td>
+                    <td style={{ padding: '11px 14px', fontFamily: 'monospace', fontSize: '12px', color: '#6b7280' }}>{r.unified_id}</td>
                     <td style={{ padding: '11px 14px', fontWeight: 600, color: '#1a1a2e' }}>{r.full_name}</td>
                     <td style={{ padding: '11px 14px', color: '#6b7280', textTransform: 'capitalize' }}>{r.patron_type}</td>
                     <td style={{ padding: '11px 14px' }}>

@@ -9,7 +9,6 @@
  * Sign Out button wired to authStore.signOut() → triggers onAuthStateChange
  * → App.tsx automatically returns to AuthGate.
  *
- * This replaces the old AppShell + Sidebar composition.
  * The `page` prop / `onNavigate` callback integrate with App.tsx state router.
  */
 import { type ReactNode } from 'react';

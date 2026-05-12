@@ -43,7 +43,7 @@ async function fetchTodayLogs(): Promise<LogEntry[]> {
   const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
   const { data, error } = await supabase
     .from('library_logs')
-    .select('*, patrons(full_name, patron_type, id_number)')
+    .select('*, patrons(full_name, patron_type, unified_id)')
     .gte('time_in', `${today}T00:00:00+08:00`)
     .lte('time_in', `${today}T23:59:59+08:00`)
     .order('time_in', { ascending: false });
@@ -165,7 +165,7 @@ export default function LiveMonitor() {
             // because Realtime payloads don't include joined columns.
             const { data } = await supabase
               .from('library_logs')
-              .select('*, patrons(full_name, patron_type, id_number)')
+              .select('*, patrons(full_name, patron_type, unified_id)')
               .eq('id', payload.new.id)
               .single();
 
@@ -272,7 +272,7 @@ export default function LiveMonitor() {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
           <thead>
             <tr style={{ backgroundColor: '#faf5ff', borderBottom: '2px solid #f3e8ff' }}>
-              {['Status', 'Patron Name', 'ID Number', 'Type', 'Time In', 'Time Out', 'Actions'].map(h => (
+              {['Status', 'Patron Name', 'Unified ID', 'Type', 'Time In', 'Time Out', 'Actions'].map(h => (
                 <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 700, color: CCC_PURPLE, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>
                   {h}
                 </th>
@@ -325,7 +325,7 @@ export default function LiveMonitor() {
                         {log.patrons?.full_name ?? <span style={{ color: '#d1d5db' }}>—</span>}
                       </td>
                       <td style={{ padding: '13px 16px', fontFamily: 'monospace', fontSize: '13px', color: '#6b7280' }}>
-                        {log.patrons?.id_number ?? '—'}
+                        {log.patrons?.unified_id ?? '—'}
                       </td>
                       <td style={{ padding: '13px 16px' }}>
                         {log.patrons ? <PatronPill type={log.patrons.patron_type} /> : '—'}

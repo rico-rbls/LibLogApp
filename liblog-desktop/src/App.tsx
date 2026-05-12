@@ -23,8 +23,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuthStore } from './store/authStore';
 import AuthGate from './components/auth/AuthGate';
 import SidebarLayout, { type PageId } from './components/layout/SidebarLayout';
+import DashboardHome from './pages/DashboardHome';
 import DashboardLayout from './pages/DashboardLayout';
 import PatronManager from './components/PatronManager';
+import BooksManager from './components/BooksManager';
 import LiveMonitor from './components/LiveMonitor';
 import ReportGenerator from './components/ReportGenerator';
 import CirculationManager from './components/CirculationManager';
@@ -45,7 +47,7 @@ const queryClient = new QueryClient({
 // ─── Page Registry ────────────────────────────────────────────────────────────
 function renderPage(page: PageId) {
   switch (page) {
-    case 'dashboard':    return <DashboardLayout />;
+    case 'dashboard':    return <DashboardHome />;
     case 'books':        return <DashboardLayout />;
     case 'patrons':      return <PatronManager />;
     case 'circulation':  return <CirculationManager />;
@@ -54,6 +56,7 @@ function renderPage(page: PageId) {
     case 'reports':      return <ReportGenerator />;
   }
 }
+
 
 // ─── Loading Spinner ──────────────────────────────────────────────────────────
 function InitializingScreen() {
