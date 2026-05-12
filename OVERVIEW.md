@@ -21,7 +21,17 @@ We adhere to a robust 3-layer architecture to ensure reliability and maintainabi
 *   **`patrons`**: Unified table for Students, Faculty, and Visitors (Linked to `auth.users`).
 *   **`books`**: Inventory management with ISBN and availability tracking.
 *   **`library_logs`**: Core transactional table for attendance tracking.
+*   **`book_loans`**: Circulation tracking (3-day borrow period, overdue penalties).
 *   **Functions**: `close_stale_library_sessions` (Automated 5PM checkout).
+
+## 🛣️ Routing Architecture (Phase 8 IA)
+*   **`/`**: Dashboard Overview (KPIs, Live Scan Feed).
+*   **`/catalog`**: Book Inventory (Dual-view Grid/Table).
+*   **`/patrons`**: Patron Management (Unified ID search).
+*   **`/circulation`**: Issue/Return transaction engine.
+*   **`/attendance`**: Historical Logbook and QR entry monitor.
+*   **`/reports`**: Administrative exports (CSV/PDF).
+*   **`/overdue`**: Penalty tracking and settlement dashboard.
 
 ## 🚀 Delivered Modules
 *   **Phase 1: Authentication Engine** — Role-based gate with session persistence.

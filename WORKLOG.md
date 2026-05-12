@@ -77,3 +77,6 @@
     * `App.tsx`: Wired `circulation` and `overdue` routes.
 * **Validation:** `tsc --noEmit` → 0 errors.
 * **Status:** Phase 5 complete — full circulation lifecycle (Issue → Return → Overdue/Penalty → Settle). 📚
+
+### May 12, 2026 01:01 PM - Automated Sync
+* Restructured App.tsx and SidebarLayout to enforce strict IA. Separated Catalog from Attendance and resolved component bleeding. Consolidated code to master branch.
