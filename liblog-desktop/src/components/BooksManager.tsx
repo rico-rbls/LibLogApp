@@ -409,6 +409,7 @@ export default function BooksManager() {
                     </td>
                   </tr>
                 )
+                : filtered.map((book, idx) => (
                   <tr
                     key={book.id}
                     style={{
@@ -488,7 +489,10 @@ export default function BooksManager() {
                       </div>
                     </td>
                   </tr>
+                ))
             }
+
+
           </tbody>
         </table>
       </div>
