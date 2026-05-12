@@ -86,3 +86,6 @@
 
 ### May 12, 2026 01:39 PM - Automated Sync
 * Added scaffold_component.py to automate component creation with CCC branding. Fixed path logic to correctly target the desktop workspace. Updated OVERVIEW.md.
+
+### May 12, 2026 01:45 PM - Automated Sync
+* Built PenaltyLedger with React Query fetching overdue book_loans, client-side penalty calc at PHP5/day, Settle Payment mutation using SUCCESS_GREEN (#10B981). Fixed scaffold_component.py JSX comment f-string SyntaxError. Wired into overdue route in App.tsx.

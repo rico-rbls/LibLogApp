@@ -41,7 +41,6 @@ export const {component_name}: React.FC<{component_name}Props> = (props) => {{
       
       <div className="text-gray-600">
         <p>Component generated via CCC Scaffolder.</p>
-        {/* Implementation goes here */}
       </div>
     </div>
   );
