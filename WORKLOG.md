@@ -66,3 +66,14 @@
     * Wired `ReportGenerator` to `reports` route in `App.tsx`.
 * **Validation:** `tsc --noEmit` → 0 errors.
 * **Status:** All 4 phases complete. MVP ready for May 18 milestone. 🎯
+### 2026-05-12 - Phase 5: Book Circulation Engine
+* **Schema Discovery:** Confirmed `book_loans` (id, book_id→books, patron_id→patrons, borrowed_at, due_date[now+3d default], returned_at, status[active|returned|overdue], penalty_paid) and `books.status[active|donated]` from live Supabase DB before writing code.
+* **Action:**
+    * Extended `types/index.ts`: `Book.status`, `BookLoan`, `BookLoanWithRelations`, `NewBookLoan`.
+    * `CirculationManager.tsx`: Split-panel Issue (patron+book select, availability guard, due-date preview) + Return (active loans table with date-fns overdue badge showing days + ₱5 penalty).
+    * `OverdueDashboard.tsx`: Queries `due_date < NOW() AND status = 'active'`; per-row penalty = `differenceInDays(now, due_date) × ₱5`; severity coding (≥7d = red); "Settle & Return" mutation closes loan + marks `penalty_paid = true` + restores `available_copies`.
+    * `BooksManager.tsx`: Added `status` column, `markBookDonated` mutation (sets status='donated', available_copies=0), Gift icon button, grays out donated rows, disables Edit on donated books.
+    * `SidebarLayout.tsx`: Added Circulation and Overdue nav items (BookMarked + AlertTriangle icons).
+    * `App.tsx`: Wired `circulation` and `overdue` routes.
+* **Validation:** `tsc --noEmit` → 0 errors.
+* **Status:** Phase 5 complete — full circulation lifecycle (Issue → Return → Overdue/Penalty → Settle). 📚

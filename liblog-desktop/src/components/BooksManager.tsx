@@ -13,7 +13,7 @@
  */
 import { useState, useDeferredValue, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Plus, Trash2, BookCopy, X, Loader2, Pencil, Search } from 'lucide-react';
+import { Plus, Trash2, BookCopy, X, Loader2, Pencil, Search, Gift } from 'lucide-react';
 import { supabase } from '../services/supabase';
 import type { Book, NewBook } from '../types';
 
@@ -43,6 +43,14 @@ async function updateBook({ id, ...rest }: Book): Promise<void> {
 
 async function deleteBook(id: string): Promise<void> {
   const { error } = await supabase.from('books').delete().eq('id', id);
+  if (error) throw new Error(error.message);
+}
+
+async function markBookDonated(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('books')
+    .update({ status: 'donated', available_copies: 0 })
+    .eq('id', id);
   if (error) throw new Error(error.message);
 }
 
@@ -99,7 +107,8 @@ interface BookModalProps {
 }
 
 const EMPTY_FORM: NewBook = {
-  title: '', author: '', isbn: '', category: '', total_copies: 1, available_copies: 1,
+  title: '', author: '', isbn: '', category: '',
+  total_copies: 1, available_copies: 1, status: 'active',
 };
 
 function BookModal({ mode, initial, onClose, onSubmit, isPending }: BookModalProps) {
@@ -279,6 +288,11 @@ export default function BooksManager() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: QUERY_KEY }),
   });
 
+  const donateMutation = useMutation({
+    mutationFn: markBookDonated,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: QUERY_KEY }),
+  });
+
   const handleDelete = (id: string, title: string) => {
     if (confirm(`Delete "${title}"? This cannot be undone.`)) {
       deleteMutation.mutate(id);
@@ -376,7 +390,7 @@ export default function BooksManager() {
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
           <thead>
             <tr style={{ backgroundColor: '#faf5ff', borderBottom: '2px solid #f3e8ff' }}>
-              {['Title', 'Author', 'ISBN', 'Category', 'Available', 'Actions'].map(h => (
+              {['Title', 'Author', 'ISBN', 'Category', 'Available', 'Status', 'Actions'].map(h => (
                 <th key={h} style={{ padding: '12px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 700, color: CCC_PURPLE, textTransform: 'uppercase', letterSpacing: '0.06em', whiteSpace: 'nowrap' }}>
                   {h}
                 </th>
@@ -389,22 +403,24 @@ export default function BooksManager() {
               : filtered.length === 0
                 ? (
                   <tr>
-                    <td colSpan={6} style={{ padding: '48px', textAlign: 'center', color: '#9ca3af' }}>
+                    <td colSpan={7} style={{ padding: '48px', textAlign: 'center', color: '#9ca3af' }}>
                       <BookCopy size={32} style={{ margin: '0 auto 12px', opacity: 0.3, display: 'block' }} />
                       {search ? `No books match "${searchRaw}"` : 'No books found. Add your first book.'}
                     </td>
                   </tr>
                 )
-                : filtered.map((book, idx) => (
                   <tr
                     key={book.id}
                     style={{
-                      backgroundColor: idx % 2 === 0 ? '#fff' : '#fdfbff',
+                      backgroundColor: book.status === 'donated'
+                        ? '#f9fafb'
+                        : idx % 2 === 0 ? '#fff' : '#fdfbff',
                       borderBottom: '1px solid #f3e8ff',
                       transition: 'background-color 0.12s',
+                      opacity: book.status === 'donated' ? 0.65 : 1,
                     }}
                     onMouseEnter={e => { (e.currentTarget as HTMLTableRowElement).style.backgroundColor = '#faf5ff'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLTableRowElement).style.backgroundColor = idx % 2 === 0 ? '#fff' : '#fdfbff'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLTableRowElement).style.backgroundColor = book.status === 'donated' ? '#f9fafb' : idx % 2 === 0 ? '#fff' : '#fdfbff'; }}
                   >
                     <td style={{ padding: '13px 16px', fontWeight: 600, color: '#1a1a2e', maxWidth: '220px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {book.title}
@@ -417,18 +433,47 @@ export default function BooksManager() {
                         : <span style={{ color: '#d1d5db' }}>—</span>}
                     </td>
                     <td style={{ padding: '13px 16px' }}>{availBadge(book.available_copies, book.total_copies)}</td>
+                    {/* Status column */}
+                    <td style={{ padding: '13px 16px' }}>
+                      <span style={{
+                        background: book.status === 'donated' ? '#f3f4f6' : '#f0fdf4',
+                        color:      book.status === 'donated' ? '#6b7280' : '#16a34a',
+                        padding: '3px 10px', borderRadius: '20px',
+                        fontSize: '12px', fontWeight: 600, textTransform: 'capitalize',
+                      }}>
+                        {book.status ?? 'active'}
+                      </span>
+                    </td>
                     <td style={{ padding: '13px 16px' }}>
                       <div style={{ display: 'flex', gap: '6px' }}>
                         {/* Edit */}
                         <button
                           onClick={() => openEdit(book)}
                           title="Edit book"
-                          style={{ background: '#f3e8ff', border: 'none', borderRadius: '8px', padding: '7px', cursor: 'pointer', color: CCC_PURPLE, display: 'flex', alignItems: 'center', transition: 'background 0.15s' }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#e9d5ff'; }}
+                          disabled={book.status === 'donated'}
+                          style={{ background: '#f3e8ff', border: 'none', borderRadius: '8px', padding: '7px', cursor: book.status === 'donated' ? 'not-allowed' : 'pointer', color: CCC_PURPLE, display: 'flex', alignItems: 'center', transition: 'background 0.15s', opacity: book.status === 'donated' ? 0.4 : 1 }}
+                          onMouseEnter={e => { if (book.status !== 'donated') (e.currentTarget as HTMLButtonElement).style.background = '#e9d5ff'; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#f3e8ff'; }}
                         >
                           <Pencil size={14} />
                         </button>
+                        {/* Mark Donated */}
+                        {book.status !== 'donated' && (
+                          <button
+                            onClick={() => {
+                              if (confirm(`Mark "${book.title}" as Donated? It will be removed from circulation.`)) {
+                                donateMutation.mutate(book.id);
+                              }
+                            }}
+                            disabled={donateMutation.isPending}
+                            title="Mark as Donated"
+                            style={{ background: '#fff7ed', border: 'none', borderRadius: '8px', padding: '7px', cursor: 'pointer', color: '#ea580c', display: 'flex', alignItems: 'center', transition: 'background 0.15s' }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = '#ffedd5'; }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#fff7ed'; }}
+                          >
+                            <Gift size={14} />
+                          </button>
+                        )}
                         {/* Delete */}
                         <button
                           onClick={() => handleDelete(book.id, book.title)}
@@ -443,7 +488,6 @@ export default function BooksManager() {
                       </div>
                     </td>
                   </tr>
-                ))
             }
           </tbody>
         </table>

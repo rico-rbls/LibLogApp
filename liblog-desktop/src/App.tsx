@@ -27,6 +27,8 @@ import DashboardLayout from './pages/DashboardLayout';
 import PatronManager from './components/PatronManager';
 import LiveMonitor from './components/LiveMonitor';
 import ReportGenerator from './components/ReportGenerator';
+import CirculationManager from './components/CirculationManager';
+import OverdueDashboard from './components/OverdueDashboard';
 import { CCC_PURPLE, CCC_AUTH_BG_START, CCC_AUTH_BG_END, QUERY_STALE_TIME, QUERY_RETRY_COUNT } from './utils/constants';
 
 // ─── React Query Client ────────────────────────────────────────────────────────
@@ -46,6 +48,8 @@ function renderPage(page: PageId) {
     case 'dashboard':    return <DashboardLayout />;
     case 'books':        return <DashboardLayout />;
     case 'patrons':      return <PatronManager />;
+    case 'circulation':  return <CirculationManager />;
+    case 'overdue':      return <OverdueDashboard />;
     case 'live-monitor': return <LiveMonitor />;
     case 'reports':      return <ReportGenerator />;
   }

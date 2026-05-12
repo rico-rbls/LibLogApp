@@ -23,6 +23,8 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  BookMarked,
+  AlertTriangle,
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuthStore } from '../../store/authStore';
@@ -33,7 +35,7 @@ const SIDEBAR_BG = '#1E1030';
 const SIDEBAR_HOVER = '#2D1A4A';
 
 // ─── Nav Registry ─────────────────────────────────────────────────────────────
-type PageId = 'dashboard' | 'books' | 'patrons' | 'live-monitor' | 'reports';
+type PageId = 'dashboard' | 'books' | 'patrons' | 'live-monitor' | 'reports' | 'circulation' | 'overdue';
 
 interface NavItem {
   id: PageId;
@@ -42,11 +44,13 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { id: 'dashboard',    label: 'Dashboard',     icon: LayoutDashboard },
-  { id: 'books',        label: 'Books',          icon: BookCopy        },
-  { id: 'patrons',      label: 'Patrons',        icon: Users           },
-  { id: 'live-monitor', label: 'Live Monitor',   icon: MonitorPlay     },
-  { id: 'reports',      label: 'Reports',        icon: BarChart3       },
+  { id: 'dashboard',    label: 'Dashboard',      icon: LayoutDashboard },
+  { id: 'books',        label: 'Books',           icon: BookCopy        },
+  { id: 'patrons',      label: 'Patrons',         icon: Users           },
+  { id: 'circulation',  label: 'Circulation',     icon: BookMarked      },
+  { id: 'overdue',      label: 'Overdue',         icon: AlertTriangle   },
+  { id: 'live-monitor', label: 'Live Monitor',    icon: MonitorPlay     },
+  { id: 'reports',      label: 'Reports',         icon: BarChart3       },
 ];
 
 // ─── Props ────────────────────────────────────────────────────────────────────
