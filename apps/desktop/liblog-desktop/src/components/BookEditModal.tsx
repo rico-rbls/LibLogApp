@@ -1,24 +1,14 @@
 /**
  * BookEditModal.tsx  (Phase 7)
  * ----------------------------
- * Isolated edit modal for updating a book record in Supabase.
+ * Isolated edit modal for updating a resource record in Supabase.
  * Institution: Calauan Community College (CCC)
- *
- * Props:
- *   - book: the Book record to edit (pre-populates form)
- *   - onClose: callback to close the modal
- *
- * Self-Annealing:
- *   - zIndex: 1000 — guaranteed to overlay SidebarLayout (z-index: 10)
- *   - Backdrop click closes modal; inner click is stopped from propagating
- *   - useMutation invalidates ['books'] on success for seamless UI refresh
- *   - Status field includes 'active' | 'donated' | 'lost'
  */
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { X, Loader2, BookOpen } from 'lucide-react';
 import { supabase } from '../services/supabase';
-import type { Book } from '../types';
+import type { Resource } from '../types';
 import {
   CCC_PURPLE,
   CCC_PURPLE_TINT,
@@ -26,9 +16,9 @@ import {
 } from '../utils/constants';
 
 // ─── Supabase Mutator ─────────────────────────────────────────────────────────
-async function updateBook(book: Book): Promise<void> {
-  const { id, created_at: _created_at, ...rest } = book;
-  const { error } = await supabase.from('books').update(rest).eq('id', id);
+async function updateResource(resource: Resource): Promise<void> {
+  const { id, created_at: _created_at, updated_at: _updated_at, ...rest } = resource;
+  const { error } = await supabase.from('resources').update(rest).eq('id', id);
   if (error) throw new Error(error.message);
 }
 
@@ -48,18 +38,18 @@ const labelSx: React.CSSProperties = {
 
 // ─── BookEditModal ────────────────────────────────────────────────────────────
 interface BookEditModalProps {
-  book: Book;
+  resource: Resource;
   onClose: () => void;
 }
 
-export default function BookEditModal({ book, onClose }: BookEditModalProps) {
-  const [form, setForm] = useState<Book>({ ...book });
+export default function BookEditModal({ resource, onClose }: BookEditModalProps) {
+  const [form, setForm] = useState<Resource>({ ...resource });
   const queryClient = useQueryClient();
 
   const { mutate, isPending, isError, error } = useMutation({
-    mutationFn: updateBook,
+    mutationFn: updateResource,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['books'] });
+      queryClient.invalidateQueries({ queryKey: ['resources'] });
       onClose();
     },
   });
@@ -78,7 +68,6 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
   const blurGray     = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => { e.target.style.borderColor = '#e5e7eb'; };
 
   return (
-    /* ── Backdrop ───────────────────────────────────────────────────────────── */
     <div
       onClick={onClose}
       style={{
@@ -89,7 +78,6 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
         zIndex: 1000, fontFamily: FONT_FAMILY,
       }}
     >
-      {/* ── Modal Panel ─────────────────────────────────────────────────────── */}
       <div
         onClick={e => e.stopPropagation()}
         style={{
@@ -100,7 +88,6 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
           animation: 'modalIn 0.2s ease',
         }}
       >
-        {/* Header */}
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '24px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
@@ -112,10 +99,10 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
             </div>
             <div>
               <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#1a1a2e' }}>
-                Edit Book
+                Edit Resource
               </h2>
               <p style={{ fontSize: '12px', color: '#9ca3af', marginTop: '2px' }}>
-                Update book details and inventory count
+                Update resource details and inventory count
               </p>
             </div>
           </div>
@@ -133,7 +120,6 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
           </button>
         </div>
 
-        {/* Error banner */}
         {isError && (
           <div style={{
             background: '#fef2f2', border: '1px solid #fecaca',
@@ -144,12 +130,10 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
           </div>
         )}
 
-        {/* Form */}
         <form
           onSubmit={e => { e.preventDefault(); mutate(form); }}
           style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
         >
-          {/* Title */}
           <div>
             <label style={labelSx}>Title *</label>
             <input required name="title" value={form.title} onChange={handleChange}
@@ -157,7 +141,6 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
               onFocus={focusPurple} onBlur={blurGray} />
           </div>
 
-          {/* Author */}
           <div>
             <label style={labelSx}>Author *</label>
             <input required name="author" value={form.author ?? ''} onChange={handleChange}
@@ -165,7 +148,6 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
               onFocus={focusPurple} onBlur={blurGray} />
           </div>
 
-          {/* ISBN + Category */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <div>
               <label style={labelSx}>ISBN</label>
@@ -181,7 +163,6 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
             </div>
           </div>
 
-          {/* Total + Available Copies */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
             <div>
               <label style={labelSx}>Total Copies *</label>
@@ -197,20 +178,19 @@ export default function BookEditModal({ book, onClose }: BookEditModalProps) {
             </div>
           </div>
 
-          {/* Status */}
           <div>
             <label style={labelSx}>Status</label>
             <select name="status" value={form.status} onChange={handleChange}
               style={{ ...inputSx, cursor: 'pointer' }}
               onFocus={focusPurple} onBlur={blurGray}
             >
-              <option value="active">Active — Available for borrowing</option>
-              <option value="donated">Donated — Removed from circulation</option>
-              <option value="lost">Lost — Marked missing</option>
+              <option value="AVAILABLE">Available — Available for borrowing</option>
+              <option value="BORROWED">Borrowed — All copies checked out</option>
+              <option value="DONATED">Donated — Removed from circulation</option>
+              <option value="MAINTENANCE">Maintenance — Being repaired</option>
             </select>
           </div>
 
-          {/* Actions */}
           <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end', marginTop: '6px' }}>
             <button
               type="button" onClick={onClose}

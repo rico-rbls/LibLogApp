@@ -10,6 +10,7 @@ lerna-debug.log*
 # Environment — never commit secrets
 .env
 .env.*.local
+.env*
 
 
 node_modules
