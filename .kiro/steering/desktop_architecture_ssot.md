@@ -1,0 +1,1 @@
+The Desktop system is the SSoT. The Mobile app is merely a React Native data-collection client. No backend logic is permitted in the mobile app.
