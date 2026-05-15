@@ -1,0 +1,16 @@
+{
+  "project": {
+    "name": "liblog-workspace",
+    "type": "monorepo"
+  },
+  "workspaces": [
+    "apps/desktop",
+    "apps/mobile",
+    "packages/shared"
+  ],
+  "hooks": {
+    "post-generate": [
+      "python execution/sync_types.py"
+    ]
+  }
+}
