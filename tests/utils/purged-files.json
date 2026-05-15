@@ -1,0 +1,30 @@
+{
+  "apiRoutes": [
+    "src/app/api/announcements/route.ts",
+    "src/app/api/attendance/route.ts",
+    "src/app/api/auth/login/route.ts",
+    "src/app/api/auth/register/route.ts",
+    "src/app/api/auth/update/route.ts",
+    "src/app/api/borrow/route.ts",
+    "src/app/api/borrow/[id]/return/route.ts",
+    "src/app/api/library/exit/route.ts",
+    "src/app/api/notifications/route.ts",
+    "src/app/api/notifications/[id]/read/route.ts",
+    "src/app/api/reading-sessions/route.ts",
+    "src/app/api/reading-sessions/[id]/end/route.ts",
+    "src/app/api/reservations/route.ts",
+    "src/app/api/reservations/[id]/route.ts",
+    "src/app/api/resources/route.ts",
+    "src/app/api/resources/[id]/route.ts",
+    "src/app/api/reviews/route.ts",
+    "src/app/api/reviews/[id]/route.ts",
+    "src/app/api/route.ts",
+    "src/app/api/settings/route.ts"
+  ],
+  "nextConfigs": [],
+  "prismaDir": [],
+  "databases": [],
+  "buildArtifacts": ["app-paths-manifest.json"],
+  "postcssConfigs": ["postcss.config.mjs"],
+  "ssotViolations": ["src/lib/db.ts"]
+}

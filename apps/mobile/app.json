@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "LibLog Mobile",
+    "slug": "liblog-mobile",
+    "version": "1.0.0",
+    "scheme": "liblog",
+    "platforms": ["ios", "android"],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#652D90"
+    },
+    "ios": {
+      "bundleIdentifier": "com.ccc.liblog"
+    },
+    "android": {
+      "package": "com.ccc.liblog",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#652D90"
+      }
+    },
+    "extra": {
+      "supabaseUrl": "YOUR_SUPABASE_URL",
+      "supabaseAnonKey": "YOUR_SUPABASE_ANON_KEY"
+    }
+  }
+}

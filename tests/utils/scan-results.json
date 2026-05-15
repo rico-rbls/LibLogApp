@@ -1,0 +1,292 @@
+{
+  "violations": [
+    {
+      "filePath": "src\\app\\api\\announcements\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\announcements\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\announcements\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\announcements\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\attendance\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\attendance\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\attendance\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\attendance\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\attendance\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\attendance\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\attendance\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from '@prisma/client' in src\\app\\api\\attendance\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\auth\\login\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\auth\\login\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\auth\\login\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\auth\\login\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\auth\\register\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\auth\\register\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\auth\\register\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\auth\\register\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\auth\\update\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports PUT from src\\app\\api\\auth\\update\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\auth\\update\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\auth\\update\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\borrow\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\borrow\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\borrow\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\borrow\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\borrow\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\borrow\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\borrow\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from '@prisma/client' in src\\app\\api\\borrow\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\borrow\\[id]\\return\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\borrow\\[id]\\return\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\borrow\\[id]\\return\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\borrow\\[id]\\return\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\library\\exit\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\library\\exit\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\library\\exit\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\library\\exit\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\notifications\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\notifications\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\notifications\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\notifications\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\notifications\\[id]\\read\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports PUT from src\\app\\api\\notifications\\[id]\\read\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\notifications\\[id]\\read\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\notifications\\[id]\\read\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reading-sessions\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\reading-sessions\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reading-sessions\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\reading-sessions\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reading-sessions\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\reading-sessions\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reading-sessions\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from '@prisma/client' in src\\app\\api\\reading-sessions\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reading-sessions\\[id]\\end\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports PUT from src\\app\\api\\reading-sessions\\[id]\\end\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reading-sessions\\[id]\\end\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\reading-sessions\\[id]\\end\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reservations\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\reservations\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reservations\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\reservations\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reservations\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\reservations\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reservations\\[id]\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports DELETE from src\\app\\api\\reservations\\[id]\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reservations\\[id]\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\reservations\\[id]\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\resources\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\resources\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\resources\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\resources\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\resources\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from '@prisma/client' in src\\app\\api\\resources\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\resources\\[id]\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\resources\\[id]\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\resources\\[id]\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\resources\\[id]\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reviews\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\reviews\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reviews\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports POST from src\\app\\api\\reviews\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reviews\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\reviews\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reviews\\[id]\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports DELETE from src\\app\\api\\reviews\\[id]\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\reviews\\[id]\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\reviews\\[id]\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\settings\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports GET from src\\app\\api\\settings\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\settings\\route.ts",
+      "violationType": "ROUTE_HANDLER",
+      "detail": "exports PUT from src\\app\\api\\settings\\route.ts"
+    },
+    {
+      "filePath": "src\\app\\api\\settings\\route.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from 'next/server' in src\\app\\api\\settings\\route.ts"
+    },
+    {
+      "filePath": "src\\lib\\db.ts",
+      "violationType": "FORBIDDEN_IMPORT",
+      "detail": "imports from '@prisma/client' in src\\lib\\db.ts"
+    }
+  ],
+  "legacyFiles": {
+    "apiRoutes": [
+      "src\\app\\api\\announcements\\route.ts",
+      "src\\app\\api\\attendance\\route.ts",
+      "src\\app\\api\\auth\\login\\route.ts",
+      "src\\app\\api\\auth\\register\\route.ts",
+      "src\\app\\api\\auth\\update\\route.ts",
+      "src\\app\\api\\borrow\\route.ts",
+      "src\\app\\api\\borrow\\[id]\\return\\route.ts",
+      "src\\app\\api\\library\\exit\\route.ts",
+      "src\\app\\api\\notifications\\route.ts",
+      "src\\app\\api\\notifications\\[id]\\read\\route.ts",
+      "src\\app\\api\\reading-sessions\\route.ts",
+      "src\\app\\api\\reading-sessions\\[id]\\end\\route.ts",
+      "src\\app\\api\\reservations\\route.ts",
+      "src\\app\\api\\reservations\\[id]\\route.ts",
+      "src\\app\\api\\resources\\route.ts",
+      "src\\app\\api\\resources\\[id]\\route.ts",
+      "src\\app\\api\\reviews\\route.ts",
+      "src\\app\\api\\reviews\\[id]\\route.ts",
+      "src\\app\\api\\route.ts",
+      "src\\app\\api\\settings\\route.ts"
+    ],
+    "nextConfigs": [],
+    "prismaDir": [],
+    "databases": [],
+    "buildArtifacts": [
+      "app-paths-manifest.json"
+    ],
+    "postcssConfigs": [
+      "postcss.config.mjs"
+    ]
+  }
+}
